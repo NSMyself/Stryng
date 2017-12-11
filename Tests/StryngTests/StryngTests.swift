@@ -15,6 +15,10 @@ class StryngTests: XCTestCase {
     func testIndex() {
         let example = "Example"
         XCTAssertEqual(example[1], "x")
+        XCTAssertEqual(example[0], "E")
+        XCTAssertEqual(example[-1], "e")
+        XCTAssertEqual(example[-7], "E")
+        XCTAssertNil(example[-8])
     }
 
     func testRange() {

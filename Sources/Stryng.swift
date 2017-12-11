@@ -12,6 +12,18 @@ public extension String {
 
     // String[1]
     public subscript(index: Int) -> Character? {
+        
+        guard index >= 0 else {
+            
+            let adjustedIndex = abs(index) - 1
+            
+            if adjustedIndex < self.count {
+                return String(self.reversed())[adjustedIndex]
+            }
+            
+            return nil
+        }
+        
         guard let stringIndex = self.index(startIndex, offsetBy: index, limitedBy: endIndex) else { return nil }
         return self[stringIndex]
     }
