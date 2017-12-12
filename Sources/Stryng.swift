@@ -10,26 +10,6 @@ import Foundation
 
 public extension String {
     
-    struct Slice {
-        let content: String
-        let offset: Int
-    }
-    
-    func makeSlice(offset index: Int) -> Slice? {
-        guard index >= 0 else {
-            
-            let adjustedIndex = abs(index) - 1
-            
-            if adjustedIndex < self.count {
-                return Slice(content: String(self.reversed()), offset: adjustedIndex)
-            }
-            
-            return nil
-        }
-        
-        return Slice(content: self, offset: index)
-    }
-    
     // String[1]
     public subscript(index: Int) -> Character? {
         
@@ -182,8 +162,9 @@ extension String {
     func indexOffset(by distance: Int) -> String.Index? {
         return index(startIndex, offsetBy: distance, limitedBy: endIndex)
     }
-    
-    func last(indexOf target: String?) -> Int? {
+
+    // Indexes
+    private func last(indexOf target: String?) -> Int? {
         guard let target = target, let range = self.range(of: target, options: .backwards) else {
             return nil
         }
@@ -194,6 +175,27 @@ extension String {
     private func negative(index: Int) -> Int? {
         guard let slice = makeSlice(offset: index), let lastChar = slice.content[slice.offset] else { return nil }
         return last(indexOf: String(lastChar))
+    }
+ 
+    // Slices
+    private struct Slice {
+        let content: String
+        let offset: Int
+    }
+    
+    private func makeSlice(offset index: Int) -> Slice? {
+        guard index >= 0 else {
+            
+            let adjustedIndex = abs(index) - 1
+            
+            if adjustedIndex < self.count {
+                return Slice(content: String(self.reversed()), offset: adjustedIndex)
+            }
+            
+            return nil
+        }
+        
+        return Slice(content: self, offset: index)
     }
 }
 
