@@ -24,6 +24,10 @@ class StryngTests: XCTestCase {
     func testRange() {
         let example = "Example"
         XCTAssertEqual(example[0..<2], "Ex")
+        XCTAssertEqual(example[..<(-1)], "Exampl")
+        XCTAssertEqual(example[..<(-2)], "Examp")
+        XCTAssertEqual(example[-2...(-1)], "le")
+        XCTAssertNil(example[-2...1], "le")
     }
 
     func testRangeEmpty() {
